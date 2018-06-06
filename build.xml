@@ -13,14 +13,14 @@
     <loadproperties srcFile="build.properties"/>
 
     <!-- build properties -->
-    <property name="checker.bin" value="${read-checker.basedir}/bin"/>
-    <property name="checker.src" value="${read-checker.basedir}/src"/>
+    <property name="readchecker.bin" value="${read-checker.basedir}/bin"/>
+    <property name="readchecker.src" value="${read-checker.basedir}/src"/>
     <property name="build.lib" value="${read-checker.basedir}/lib"/>
     <!-- <property name="checker.dist" value="${read-checker.basedir}/bin"/> -->
 
     <!-- if using jdk.astub, un-comment below properties, and re-configure the right place of your jdk.astub-->
-    <property name="jdk.astub" value="${checker.src}/read/jdk.astub"/>
-    <property name="jdk.astub.bin.dir" value="${checker.bin}/read"/>
+    <property name="jdk.astub" value="${readchecker.src}/read/jdk.astub"/>
+    <property name="jdk.astub.bin.dir" value="${readchecker.bin}/read"/>
 
     <!-- test properties -->
     <property name="test" value="${read-checker.basedir}/tests" />
@@ -37,7 +37,7 @@
     <!-- build targets start -->
     <target name="init"
         description="link all necessary dependences into ${build.deps}">
-        <mkdir dir="${checker.bin}"/>
+        <mkdir dir="${readchecker.bin}"/>
         <mkdir dir="${build.lib}"/>
 
         <symlink link="${build.lib}/framework.jar" resource="${framework.lib}" overwrite="true"/>
@@ -60,7 +60,7 @@
 
         <pathconvert pathsep=" " property="src.checker">
         <path>
-            <fileset dir="${checker.src}">
+            <fileset dir="${readchecker.src}">
                 <include name="**/*.java"/>
             </fileset>
         </path>
@@ -78,8 +78,8 @@
             <arg value="7"/>
             <!-- To not get a warning about bootstrap classpath -->
             <arg value="-Xlint:-options"/>
-            <arg line="-sourcepath ${checker.src}"/>
-            <arg line="-d ${checker.bin}"/>
+            <arg line="-sourcepath ${readchecker.src}"/>
+            <arg line="-d ${readchecker.bin}"/>
             <arg line="${src.checker}"/>
         </java>
     </target>
@@ -89,7 +89,7 @@
 
     <target name="clean-build"
         description="delete all generated files and directories by dist target">
-        <delete dir="${checker.bin}" quiet="true"/>
+        <delete dir="${readchecker.bin}" quiet="true"/>
         <delete dir="${build.lib}" quiet="true"/>
     </target>
     <!-- build targets end -->
@@ -125,7 +125,7 @@
     <target name="dist-test" depends="init-test,dist" description="Compile tests">
         <java fork="true"
               failonerror="true"
-              classpath="${test.lib.jars}:${checker.bin}:${cf.util.build}"
+              classpath="${test.lib.jars}:${readchecker.bin}:${cf.util.build}"
               classname="com.sun.tools.javac.Main">
             <jvmarg line="-Xbootclasspath/p:${javac.lib}"/>
             <arg value="-g"/>
@@ -166,8 +166,8 @@
                haltonfailure="${halt.on.test.failure}">
             <!--Set JAVAC_JAR so the insert-annotations-to-source can use it-->
             <!-- <env key="JAVAC_JAR" value="${javac.lib}"/> -->
-            <classpath path="${test.lib.jars}:${test.build}:${checker.bin}:${cf.util.build}"/>
-            <jvmarg line="-Xbootclasspath/p:${javac.lib}"/>
+            <classpath path="${test.lib.jars}:${test.build}:${readchecker.bin}:${cf.util.build}"/>
+            <jvmarg line="-Xbootclasspath/p:${jdk8.lib};${javac.lib}"/>
             <jvmarg line="-ea"/>
             <!-- <jvmarg line="${debugger.str}"/> -->
             <sysproperty key="use.hacks" value="${use.hacks.str}"/>
