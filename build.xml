@@ -28,6 +28,7 @@
     <property name="test.lib" value="${test}/lib" />
     <property name="test.build" value="${test}/build"/>
     <property name="test.build.reports" value="${test.build}/reports"/>
+    <property name="cf.util.build" value="${checker-framework}/util/build/classes/java/main"/>
 
     <!-- Defaults, used if the Ant invocation does not set a value. -->
     <property name="halt.on.test.error" value="true" />
@@ -124,7 +125,7 @@
     <target name="dist-test" depends="init-test,dist" description="Compile tests">
         <java fork="true"
               failonerror="true"
-              classpath="${test.lib.jars}:${checker.bin}"
+              classpath="${test.lib.jars}:${checker.bin}:${cf.util.build}"
               classname="com.sun.tools.javac.Main">
             <jvmarg line="-Xbootclasspath/p:${javac.lib}"/>
             <arg value="-g"/>
@@ -165,7 +166,7 @@
                haltonfailure="${halt.on.test.failure}">
             <!--Set JAVAC_JAR so the insert-annotations-to-source can use it-->
             <!-- <env key="JAVAC_JAR" value="${javac.lib}"/> -->
-            <classpath path="${test.lib.jars}:${test.build}:${checker.bin}"/>
+            <classpath path="${test.lib.jars}:${test.build}:${checker.bin}:${cf.util.build}"/>
             <jvmarg line="-Xbootclasspath/p:${javac.lib}"/>
             <jvmarg line="-ea"/>
             <!-- <jvmarg line="${debugger.str}"/> -->
