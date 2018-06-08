@@ -167,7 +167,7 @@
             <!--Set JAVAC_JAR so the insert-annotations-to-source can use it-->
             <!-- <env key="JAVAC_JAR" value="${javac.lib}"/> -->
             <classpath path="${test.lib.jars}:${test.build}:${readchecker.bin}:${cf.util.build}"/>
-            <jvmarg line="-Xbootclasspath/p:${jdk8.lib};${javac.lib}"/>
+            <jvmarg line="-Xbootclasspath/p:${javac.lib}"/>
             <jvmarg line="-ea"/>
             <!-- <jvmarg line="${debugger.str}"/> -->
             <sysproperty key="use.hacks" value="${use.hacks.str}"/>

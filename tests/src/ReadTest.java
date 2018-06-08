@@ -10,7 +10,8 @@ public class ReadTest extends CheckerFrameworkPerDirectoryTest {
         super(testFiles,
                 read.ReadChecker.class,
                 "",
-                "-Anomsgtext");
+                "-Anomsgtext",
+                "-Anocheckjdk");
     }
 
     @Parameters
